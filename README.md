@@ -35,6 +35,18 @@ python3 -m http.server 8080
 
 Then visit `http://localhost:8080`.
 
+## Deployment
+
+This project is set up for AWS Amplify static hosting, matching the MMPOA static-site deployment pattern.
+
+Deploy manually with:
+
+```sh
+./scripts/deploy-amplify.sh
+```
+
+Deployment details are in `docs/DEPLOYMENT.md`.
+
 ## Production notes
 
 Before launch, replace placeholder newsletter behavior with the chosen email provider and confirm whether AGW Productions should use a dedicated domain, a GitHub Pages domain, or another host.
