@@ -1,10 +1,11 @@
-# AGW Productions Website
+# Alien Ghost Wizard Productions Website
 
-Static starter site for AGW Productions, a small publishing company and author platform launching with `Grey's on 51st St.`.
+Static starter site for Alien Ghost Wizard Productions, a small publishing company and author platform launching with `Grey's on 51st St.`.
 
 ## What is included
 
 - Publisher-focused home page
+- Alien Ghost Wizard brand hero using `assets/agw.png`
 - Expandable book catalog
 - Featured `Grey's on 51st St.` section using content from greysdiner.com
 - Creative team section
