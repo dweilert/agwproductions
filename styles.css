@@ -234,7 +234,7 @@ h3 {
   padding: clamp(54px, 8vw, 104px) clamp(18px, 5vw, 72px);
 }
 
-.intro-grid,
+.launch-strip,
 .identity-grid,
 .book-grid,
 .team-grid {
@@ -243,7 +243,7 @@ h3 {
   gap: 18px;
 }
 
-.intro-grid article,
+.launch-card,
 .identity-grid article,
 .book-card,
 .team-card {
@@ -253,8 +253,33 @@ h3 {
   box-shadow: 0 10px 35px rgba(37, 42, 58, 0.06);
 }
 
-.intro-grid article {
+.launch-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 22px;
+  min-height: 330px;
   padding: 28px;
+}
+
+.launch-card p {
+  color: var(--muted);
+}
+
+.launch-card-featured {
+  color: #fff;
+  background:
+    linear-gradient(180deg, rgba(16, 23, 36, 0.1), rgba(16, 23, 36, 0.92)),
+    url("https://static.wixstatic.com/media/9f65a1_7c73cee861284382b6623299bea80ba4%7Emv2.jpg/v1/fit/w_1200,h_638,al_c,q_88/9f65a1_7c73cee861284382b6623299bea80ba4%7Emv2.jpg");
+  background-position: center;
+  background-size: cover;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.launch-card-featured h2,
+.launch-card-featured p {
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.48);
 }
 
 .identity-section {
@@ -713,7 +738,7 @@ h3 {
     min-height: auto;
   }
 
-  .intro-grid,
+  .launch-strip,
   .identity-grid,
   .provider-grid,
   .book-grid,
