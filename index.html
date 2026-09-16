@@ -22,6 +22,7 @@
       </a>
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="#books">Books</a>
+        <a href="#shop">Shop</a>
         <a href="#greys">Grey's Diner</a>
         <a href="#publisher">Publisher</a>
         <a href="#contact">Contact</a>
@@ -37,7 +38,7 @@
           <p class="lead secondary-lead">The catalog begins with <em>Grey's on 51st St.</em>, a sci-fi graphic novel mystery by Harris Baumann, and is built to grow into multiple books, series, formats, and reader campaigns.</p>
           <div class="hero-actions">
             <a class="button primary" href="#books">Browse Books</a>
-            <a class="button secondary" href="https://www.greysdiner.com/product-page/grey-s-on-51st-st">Buy Grey's on 51st St.</a>
+            <button class="button secondary js-demo-buy" type="button" data-book-id="greys-51st">Demo Checkout</button>
           </div>
         </div>
         <div class="hero-art" aria-label="Alien Ghost Wizard artwork preview">
@@ -97,6 +98,48 @@
         <div class="book-grid" id="book-grid"></div>
       </section>
 
+      <section id="shop" class="section shop-section">
+        <div class="section-heading">
+          <p class="eyebrow">Commerce demo</p>
+          <h2>Checkout paths ready for the real provider.</h2>
+          <p>The demo button opens a front-end checkout preview today. When AGW picks a provider, the same catalog data can point to Stripe, Shopify, Ecwid, Snipcart, or PayPal.</p>
+        </div>
+        <div class="commerce-layout">
+          <article class="commerce-demo">
+            <span class="kicker">Current demo</span>
+            <h3>Grey's on 51st St.</h3>
+            <p>Paperback / graphic novel checkout preview with quantity, subtotal, shipping estimate, and provider notes. No payment is collected.</p>
+            <div class="commerce-price">$25.00</div>
+            <div class="card-actions">
+              <button class="button primary js-demo-buy" type="button" data-book-id="greys-51st">Open Demo Checkout</button>
+              <a class="button light" href="https://www.greysdiner.com/product-page/grey-s-on-51st-st">Current Wix Store</a>
+            </div>
+          </article>
+          <div class="provider-grid" aria-label="Supported commerce providers">
+            <article>
+              <span>Recommended now</span>
+              <h3>Stripe Buy Button</h3>
+              <p>Best for a fast launch with one or a few books. Replace the demo action with Stripe's generated buy-button code.</p>
+            </article>
+            <article>
+              <span>Best for scale</span>
+              <h3>Shopify Buy Button</h3>
+              <p>Good when AGW needs inventory, bundles, discounts, and a broader catalog while keeping this custom site.</p>
+            </article>
+            <article>
+              <span>Embedded store</span>
+              <h3>Ecwid</h3>
+              <p>Can embed a full store, category, or product card into the page with a small script.</p>
+            </article>
+            <article>
+              <span>Static-site cart</span>
+              <h3>Snipcart</h3>
+              <p>Keeps products in site markup and adds cart/checkout behavior with a hosted merchant dashboard.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section id="greys" class="feature-section">
         <div class="feature-media">
           <img src="https://static.wixstatic.com/media/9f65a1_a2c3f03a777b43b09467a8f44dea9c40~mv2.jpg/v1/fill/w_900,h_900,al_c,q_90/shop-graphic.jpg" alt="Grey's on 51st St. shop artwork">
@@ -120,7 +163,10 @@
               <dd>$25.00</dd>
             </div>
           </dl>
-          <a class="button primary" href="https://www.greysdiner.com/product-page/grey-s-on-51st-st">Buy Now</a>
+          <div class="card-actions">
+            <button class="button primary js-demo-buy" type="button" data-book-id="greys-51st">Demo Checkout</button>
+            <a class="button secondary" href="https://www.greysdiner.com/product-page/grey-s-on-51st-st">Current Wix Store</a>
+          </div>
         </div>
       </section>
 
@@ -172,6 +218,43 @@
         <a href="https://www.instagram.com/greysdiner/">Instagram</a>
       </div>
     </footer>
+
+    <div class="checkout-modal" id="checkout-modal" aria-hidden="true">
+      <div class="checkout-backdrop" data-close-checkout></div>
+      <section class="checkout-dialog" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+        <button class="checkout-close" type="button" aria-label="Close checkout" data-close-checkout>&times;</button>
+        <div class="checkout-product">
+          <img id="checkout-image" src="" alt="">
+          <div>
+            <p class="eyebrow">Demo checkout</p>
+            <h2 id="checkout-title">Checkout</h2>
+            <p id="checkout-description"></p>
+          </div>
+        </div>
+        <div class="checkout-controls">
+          <label>
+            Quantity
+            <input id="checkout-quantity" type="number" min="1" max="10" value="1">
+          </label>
+          <div class="checkout-total">
+            <span>Estimated total</span>
+            <strong id="checkout-total">$25.00</strong>
+          </div>
+        </div>
+        <div class="checkout-provider">
+          <h3>Provider slot</h3>
+          <p id="checkout-provider-note">This demo can be replaced with Stripe Buy Button, Shopify Buy Button, Ecwid, Snipcart, or PayPal.</p>
+          <code id="checkout-provider-code">&lt;stripe-buy-button buy-button-id="..." publishable-key="..."&gt;&lt;/stripe-buy-button&gt;</code>
+        </div>
+        <form class="checkout-form">
+          <label>
+            Email for receipt
+            <input type="email" placeholder="reader@example.com">
+          </label>
+          <button class="button primary" type="submit">Place Demo Order</button>
+        </form>
+      </section>
+    </div>
 
     <script src="script.js"></script>
   </body>

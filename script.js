@@ -1,32 +1,39 @@
 const books = [
   {
+    id: "greys-51st",
     title: "Grey's on 51st St.",
     status: "Available now",
     format: "Graphic novel",
     genre: "Sci-fi mystery",
     price: "$25.00",
+    amount: 25,
     image: "https://static.wixstatic.com/media/9f65a1_a2c3f03a777b43b09467a8f44dea9c40~mv2.jpg/v1/fill/w_900,h_900,al_c,q_90/shop-graphic.jpg",
     description:
       "A TV-obsessed amateur sleuth is pulled into a cosmic murder case after discovering aliens are secretly living in his city.",
-    buyUrl: "https://www.greysdiner.com/product-page/grey-s-on-51st-st"
+    buyUrl: "https://www.greysdiner.com/product-page/grey-s-on-51st-st",
+    commerceProvider: "demo"
   },
   {
+    id: "next-agw-title",
     title: "Next AGW Title",
     status: "Coming soon",
     format: "Book slot",
     genre: "TBD",
     price: "TBD",
+    amount: 0,
     image: "https://static.wixstatic.com/media/9f65a1_996d87a538ac4254866a5fb584b863a9~mv2.png/v1/crop/x_0,y_69,w_1498,h_721/fill/w_900,h_432,al_c,q_90/trees.png",
     description:
       "Use this card as the template for future books, preorders, series pages, special editions, or retailer campaigns.",
     buyUrl: "#contact"
   },
   {
+    id: "series-bundle-feature",
     title: "Series or Bundle Feature",
     status: "Planning",
     format: "Promotion",
     genre: "Multi-book",
     price: "TBD",
+    amount: 0,
     image: "https://static.wixstatic.com/media/9f65a1_3772af7591cb41318a00a3a4608ae2a1~mv2.png/v1/fill/w_900,h_792,al_c,q_90/coffee%20cup.png",
     description:
       "A flexible promotional slot for signed copies, bundles, convention offers, retailer links, and newsletter-only releases.",
@@ -84,7 +91,12 @@ function renderBooks() {
             <p>${book.description}</p>
             <p><strong>${book.price}</strong></p>
             <div class="card-actions">
-              <a class="button primary" href="${book.buyUrl}">${book.status === "Available now" ? "Buy Now" : "Learn More"}</a>
+              ${
+                book.status === "Available now"
+                  ? `<button class="button primary js-demo-buy" type="button" data-book-id="${book.id}">Demo Checkout</button>
+                     <a class="button ghost" href="${book.buyUrl}">Wix Store</a>`
+                  : `<a class="button primary" href="${book.buyUrl}">Learn More</a>`
+              }
             </div>
           </div>
         </article>
@@ -107,6 +119,76 @@ function renderTeam() {
     )
     .join("");
 }
+
+function formatCurrency(value) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD"
+  }).format(value);
+}
+
+function getBook(bookId) {
+  return books.find((book) => book.id === bookId) || books[0];
+}
+
+function updateCheckoutTotal(book) {
+  const quantityInput = document.querySelector("#checkout-quantity");
+  const total = document.querySelector("#checkout-total");
+  const quantity = Math.max(1, Number(quantityInput.value || 1));
+  const shippingEstimate = quantity > 0 ? 5 : 0;
+  total.textContent = formatCurrency(book.amount * quantity + shippingEstimate);
+}
+
+function openDemoCheckout(bookId) {
+  const book = getBook(bookId);
+  const modal = document.querySelector("#checkout-modal");
+  const quantityInput = document.querySelector("#checkout-quantity");
+
+  document.querySelector("#checkout-image").src = book.image;
+  document.querySelector("#checkout-image").alt = book.title;
+  document.querySelector("#checkout-title").textContent = book.title;
+  document.querySelector("#checkout-description").textContent = `${book.format} - ${book.price}. Includes a demo $5 shipping estimate.`;
+  document.querySelector("#checkout-provider-note").textContent =
+    "Demo mode is active. In production, this button can be swapped for Stripe Buy Button first, or Shopify/Ecwid/Snipcart if AGW wants a larger store workflow.";
+
+  quantityInput.value = 1;
+  quantityInput.oninput = () => updateCheckoutTotal(book);
+  updateCheckoutTotal(book);
+
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  quantityInput.focus();
+}
+
+function closeDemoCheckout() {
+  const modal = document.querySelector("#checkout-modal");
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+}
+
+document.addEventListener("click", (event) => {
+  const buyButton = event.target.closest(".js-demo-buy");
+  if (buyButton) {
+    openDemoCheckout(buyButton.dataset.bookId);
+  }
+
+  if (event.target.closest("[data-close-checkout]")) {
+    closeDemoCheckout();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeDemoCheckout();
+  }
+});
+
+document.querySelector(".checkout-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  event.currentTarget.reset();
+  closeDemoCheckout();
+  alert("Demo order captured. No payment was processed.");
+});
 
 document.querySelector(".signup-form").addEventListener("submit", (event) => {
   event.preventDefault();

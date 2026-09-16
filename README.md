@@ -7,6 +7,7 @@ Static starter site for Alien Ghost Wizard Productions, a small publishing compa
 - Publisher-focused home page
 - Alien Ghost Wizard brand hero using `assets/agw.png`
 - Expandable book catalog
+- Demo checkout layer with provider-ready slots
 - Featured `Grey's on 51st St.` section using content from greysdiner.com
 - Creative team section
 - Newsletter/contact placeholder
@@ -47,6 +48,12 @@ Deploy manually with:
 
 Deployment details are in `docs/DEPLOYMENT.md`.
 
+## Commerce
+
+The site currently includes a front-end demo checkout. It does not process real payments.
+
+The intended first production integration is Stripe Payment Links / Buy Button. The demo can also be replaced with Shopify Buy Button, Ecwid, Snipcart, or PayPal depending on how much catalog, inventory, shipping, and discount management AGW needs.
+
 ## Production notes
 
-Before launch, replace placeholder newsletter behavior with the chosen email provider and confirm whether AGW Productions should use a dedicated domain, a GitHub Pages domain, or another host.
+Before launch, replace placeholder newsletter behavior with the chosen email provider and replace demo checkout with the selected payment provider.
